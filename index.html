@@ -323,147 +323,178 @@ tbody tr:nth-child(even){background:#ffffff}
 </div>
 <div class="toast" id="toast"></div>
 
-<script>
-const employees = [
-  { name: 'Arjun Kumar', id: 'EMP001', role: 'Technician', type: 'Permanent', company: 'ABC Motors', primary: '+91-9876540001', secondary: '+91-9876500001' },
-  { name: 'Bhavana R', id: 'EMP002', role: 'Supervisor', type: 'Permanent', company: 'XYZ Auto', primary: '+91-9876540002', secondary: '+91-9876500002' },
-  { name: 'Chirag S', id: 'EMP003', role: 'Manager', type: 'Permanent', company: 'Premium Cars', primary: '+91-9876540003', secondary: '+91-9876500003' },
-  { name: 'Deepa N', id: 'EMP004', role: 'Advisor', type: 'Contract', company: 'Elite Service', primary: '+91-9876540004', secondary: '+91-9876500004' },
-  { name: 'Eshan P', id: 'EMP005', role: 'Technician', type: 'Temporary', company: 'ABC Motors', primary: '+91-9876540005', secondary: '+91-9876500005' },
-  { name: 'Farah T', id: 'EMP006', role: 'Supervisor', type: 'Permanent', company: 'XYZ Auto', primary: '+91-9876540006', secondary: '+91-9876500006' },
-  { name: 'Gautam R', id: 'EMP007', role: 'Technician', type: 'Permanent', company: 'Premium Cars', primary: '+91-9876540007', secondary: '+91-9876500007' },
-  { name: 'Hema S', id: 'EMP008', role: 'Advisor', type: 'Contract', company: 'Elite Service', primary: '+91-9876540008', secondary: '+91-9876500008' },
-  { name: 'Irfan K', id: 'EMP009', role: 'Manager', type: 'Permanent', company: 'ABC Motors', primary: '+91-9876540009', secondary: '+91-9876500009' },
-  { name: 'Jaya M', id: 'EMP010', role: 'Technician', type: 'Permanent', company: 'XYZ Auto', primary: '+91-9876540010', secondary: '+91-9876500010' },
-  { name: 'Karan V', id: 'EMP011', role: 'Supervisor', type: 'Temporary', company: 'Premium Cars', primary: '+91-9876540011', secondary: '+91-9876500011' },
-  { name: 'Laila Z', id: 'EMP012', role: 'Technician', type: 'Permanent', company: 'Elite Service', primary: '+91-9876540012', secondary: '+91-9876500012' },
-  { name: 'Manoj P', id: 'EMP013', role: 'Advisor', type: 'Permanent', company: 'ABC Motors', primary: '+91-9876540013', secondary: '+91-9876500013' },
-  { name: 'Nita R', id: 'EMP014', role: 'Manager', type: 'Contract', company: 'XYZ Auto', primary: '+91-9876540014', secondary: '+91-9876500014' },
-  { name: 'Omar S', id: 'EMP015', role: 'Technician', type: 'Permanent', company: 'Premium Cars', primary: '+91-9876540015', secondary: '+91-9876500015' },
-  { name: 'Priya K', id: 'EMP016', role: 'Supervisor', type: 'Permanent', company: 'Elite Service', primary: '+91-9876540016', secondary: '+91-9876500016' }
+ <script>
+let employees = JSON.parse(localStorage.getItem("employees")) || [
+  { name:'Arjun Kumar',id:'EMP001',role:'Technician',type:'Permanent',company:'ABC Motors',primary:'+91-9876540001',secondary:'+91-9876500001' },
+  { name:'Bhavana R',id:'EMP002',role:'Supervisor',type:'Permanent',company:'XYZ Auto',primary:'+91-9876540002',secondary:'+91-9876500002' },
+  { name:'Chirag S',id:'EMP003',role:'Manager',type:'Permanent',company:'Premium Cars',primary:'+91-9876540003',secondary:'+91-9876500003' },
+  { name:'Deepa N',id:'EMP004',role:'Advisor',type:'Contract',company:'Elite Service',primary:'+91-9876540004',secondary:'+91-9876500004' },
+  { name:'Eshan P',id:'EMP005',role:'Technician',type:'Temporary',company:'ABC Motors',primary:'+91-9876540005',secondary:'+91-9876500005' },
+  { name:'Farah T',id:'EMP006',role:'Supervisor',type:'Permanent',company:'XYZ Auto',primary:'+91-9876540006',secondary:'+91-9876500006' },
+  { name:'Gautam R',id:'EMP007',role:'Technician',type:'Permanent',company:'Premium Cars',primary:'+91-9876540007',secondary:'+91-9876500007' },
+  { name:'Hema S',id:'EMP008',role:'Advisor',type:'Contract',company:'Elite Service',primary:'+91-9876540008',secondary:'+91-9876500008' },
+  { name:'Irfan K',id:'EMP009',role:'Manager',type:'Permanent',company:'ABC Motors',primary:'+91-9876540009',secondary:'+91-9876500009' },
+  { name:'Jaya M',id:'EMP010',role:'Technician',type:'Permanent',company:'XYZ Auto',primary:'+91-9876540010',secondary:'+91-9876500010' },
+  { name:'Karan V',id:'EMP011',role:'Supervisor',type:'Temporary',company:'Premium Cars',primary:'+91-9876540011',secondary:'+91-9876500011' },
+  { name:'Laila Z',id:'EMP012',role:'Technician',type:'Permanent',company:'Elite Service',primary:'+91-9876540012',secondary:'+91-9876500012' },
+  { name:'Manoj P',id:'EMP013',role:'Advisor',type:'Permanent',company:'ABC Motors',primary:'+91-9876540013',secondary:'+91-9876500013' },
+  { name:'Nita R',id:'EMP014',role:'Manager',type:'Contract',company:'XYZ Auto',primary:'+91-9876540014',secondary:'+91-9876500014' },
+  { name:'Omar S',id:'EMP015',role:'Technician',type:'Permanent',company:'Premium Cars',primary:'+91-9876540015',secondary:'+91-9876500015' },
+  { name:'Priya K',id:'EMP016',role:'Supervisor',type:'Permanent',company:'Elite Service',primary:'+91-9876540016',secondary:'+91-9876500016' }
 ];
 
-if (!localStorage.getItem("employees")) {
-    localStorage.setItem("employees", JSON.stringify(employees));
-    console.log("Initial employees saved to Local Storage");
-}
-
-let filtered = JSON.parse(localStorage.getItem("employees")) || [];
+localStorage.setItem("employees", JSON.stringify(employees));
+let filtered = [...employees];
 
 const tbody = document.getElementById('tbody');
-const searchBtn = document.getElementById('searchBtn');
-const filterBtn = document.getElementById('filterBtn');
-const filterPanel = document.getElementById('filterPanel');
-const searchBox = document.getElementById('searchBox');
-const searchInput = document.getElementById('searchInput');
+const pageInfo = document.getElementById('pageInfo');
 const toast = document.getElementById('toast');
 
+const searchBtn = document.getElementById('searchBtn');
+const filterBtn = document.getElementById('filterBtn');
+const searchBox = document.getElementById('searchBox');
+const filterPanel = document.getElementById('filterPanel');
+const resetFilters = document.getElementById('resetFilters');
+
+const searchInput = document.getElementById('searchInput');
 const typeFilter = document.getElementById('typeFilter');
 const roleFilter = document.getElementById('roleFilter');
 const companyFilter = document.getElementById('companyFilter');
-const resetFilters = document.getElementById('resetFilters');
+
+const exportBtn = document.getElementById('exportBtn');
+const addBtn = document.getElementById('addBtn');
+
+let currentPage = 1;
+let rowsPerPage = 5;
 
 function render(){
- tbody.innerHTML='';
- filtered.forEach(emp=>{
-  const tr=document.createElement('tr');
-  tr.innerHTML=`
-    <td>${emp.name}</td>
-    <td>${emp.id}</td>
-    <td><span class="chip ${emp.role.split(' ')[0]}">${emp.role}</span></td>
-    <td>${emp.primary}</td>
-    <td>${emp.secondary}</td>
-    <td>
-      <button class="action-btn edit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
-</svg></button>
-      <button class="action-btn delete"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-</svg></button>
-    </td>`;
-  
-  tr.onclick=()=>console.log('Selected employee:', emp);
-  tr.querySelector('.edit').onclick = (e) => {
-    e.stopPropagation();
-    console.log('Edit', emp.id);
-    location.href = `./operations/employee-management/edit/${emp.id}.html`;
-};
+  tbody.innerHTML='';
+  const start=(currentPage-1)*rowsPerPage;
+  const pageRows=filtered.slice(start,start+rowsPerPage);
 
-  tr.querySelector('.delete').onclick = (e) => {
-    e.stopPropagation();
-    if (confirm(`Are you sure you want to delete ${emp.name}?`)) {
-        let storedEmployees = JSON.parse(localStorage.getItem("employees")) || [];
-        storedEmployees = storedEmployees.filter(e => e.id !== emp.id);
-        localStorage.setItem("employees", JSON.stringify(storedEmployees));
-        employees = storedEmployees;
+  pageRows.forEach(emp=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td>${emp.name}</td>
+      <td>${emp.id}</td>
+      <td><span class="chip ${emp.role}">${emp.role}</span></td>
+      <td>${emp.primary}</td>
+      <td>${emp.secondary}</td>
+      <td>
+        <button class="action-btn edit" aria-label="Edit">✏️</button>
+        <button class="action-btn delete" aria-label="Delete">🗑️</button>
+      </td>`;
+
+    tr.onclick=()=>{
+      document.querySelectorAll('tbody tr').forEach(r=>r.classList.remove('selected'));
+      tr.classList.add('selected');
+      console.log('Row selected:',emp);
+    };
+
+    tr.querySelector('.edit').onclick=e=>{
+      e.stopPropagation();
+      console.log('Edit:',emp.id);
+      location.href=`./operations/employee-management/edit/${emp.id}.html`;
+    };
+
+    tr.querySelector('.delete').onclick=e=>{
+      e.stopPropagation();
+      if(confirm(`Are you sure you want to delete ${emp.name}?`)){
+        employees=employees.filter(x=>x.id!==emp.id);
+        localStorage.setItem("employees",JSON.stringify(employees));
         applyFilters();
-        showToast(`Employee ${emp.name} deleted successfully.`);
-        console.log('Deleted from Local Storage:', emp.id, emp.name);
-    }
-};
+        showToast(`Employee ${emp.name} deleted successfully`);
+        console.log('Deleted:',emp.id);
+      }
+    };
 
-  tbody.appendChild(tr);
- });
- document.getElementById('pageInfo').innerText=`1-${filtered.length} of ${filtered.length}`;
- console.log('Rendered',filtered.length);
+    tbody.appendChild(tr);
+  });
+  renderPagination();
 }
 
-function applyFilters() {
-    const typeVal = typeFilter.value;
-    const roleVal = roleFilter.value;
-    const companyVal = companyFilter.value;
-    const searchVal = searchInput.value.toLowerCase();
+function renderPagination() {
+  const totalPages = Math.ceil(filtered.length / rowsPerPage);
+  if (totalPages === 0) {
+    pageInfo.innerHTML = '';
+    return;
+  }
 
-    filtered = employees.filter(emp => {
-        const matchesType = typeVal === 'All' || emp.type === typeVal;
-        const matchesRole = roleVal === 'All' || emp.role === roleVal;
-        const matchesCompany = companyVal === 'All' || emp.company === companyVal;
-        const matchesSearch = Object.values(emp).join(' ').toLowerCase().includes(searchVal);
-        return matchesType && matchesRole && matchesCompany && matchesSearch;
-    });
+  const startItem = (currentPage - 1) * rowsPerPage + 1;
+  const endItem = Math.min(currentPage * rowsPerPage, filtered.length);
 
-    console.log('Filters applied:', { type: typeVal, role: roleVal, company: companyVal, search: searchVal });
-    render();
+  pageInfo.innerHTML = `
+    <span>${startItem}-${endItem} of ${filtered.length}</span>
+    <button ${currentPage === 1 ? 'disabled' : ''} onclick="gotoPage(${currentPage - 1})">
+      Prev
+    </button>
+    <button ${currentPage === totalPages ? 'disabled' : ''} onclick="gotoPage(${currentPage + 1})">
+      Next
+    </button>
+  `;
 }
 
-typeFilter.onchange = applyFilters;
-roleFilter.onchange = applyFilters;
-companyFilter.onchange = applyFilters;
+function gotoPage(p){
+  const totalPages=Math.ceil(filtered.length/rowsPerPage);
+  if(p<1||p>totalPages) return;
+  currentPage=p;
+  console.log('Page:',p);
+  render();
+}
 
-resetFilters.onclick = () => {
-    typeFilter.value = 'All';
-    roleFilter.value = 'All';
-    companyFilter.value = 'All';
-    searchInput.value = '';
-    filtered = [...employees];
-    console.log('Filters reset');
-    render();
+function applyFilters(){
+  const s=searchInput.value.toLowerCase();
+  filtered=employees.filter(emp=>
+    (typeFilter.value==='All'||emp.type===typeFilter.value)&&
+    (roleFilter.value==='All'||emp.role===roleFilter.value)&&
+    (companyFilter.value==='All'||emp.company===companyFilter.value)&&
+    Object.values(emp).join(' ').toLowerCase().includes(s)
+  );
+  currentPage=1;
+  console.log('Filters applied');
+  render();
+}
+
+searchBtn.onclick=()=>{
+  searchBox.style.display=searchBox.style.display==='block'?'none':'block';
+};
+filterBtn.onclick=()=>{
+  filterPanel.style.display=filterPanel.style.display==='block'?'none':'block';
+};
+resetFilters.onclick=()=>{
+  typeFilter.value='All';
+  roleFilter.value='All';
+  companyFilter.value='All';
+  searchInput.value='';
+  applyFilters();
 };
 
-searchBtn.onclick=()=>searchBox.style.display=searchBox.style.display==='block'?'none':'block';
-filterBtn.onclick=()=>filterPanel.style.display=filterPanel.style.display==='block'?'none':'block';
+exportBtn.onclick=()=>{
+  const start=(currentPage-1)*rowsPerPage;
+  const rows=filtered.slice(start,start+rowsPerPage);
+  let csv='Name,ID,Role,Type,Company,Primary,Secondary\n';
+  rows.forEach(e=>csv+=`${e.name},${e.id},${e.role},${e.type},${e.company},${e.primary},${e.secondary}\n`);
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='employees.csv';
+  a.click();
+  console.log('Exported CSV rows:',rows.length);
+};
+
+addBtn.onclick=()=>{
+  console.log('Add clicked');
+  location.href='./operations/employee-management/add.html';
+};
+
 searchInput.oninput=applyFilters;
-
-document.getElementById('exportBtn').onclick=()=>{
- let csv='Name,ID,Role\n';
- filtered.forEach(e=>csv+=`${e.name},${e.id},${e.role}\n`);
- console.log('Export CSV',csv);
- const a=document.createElement('a');
- a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
- a.download='employees.csv';
- a.click();
-};
-
-document.getElementById('addBtn').onclick = () => {
-    console.log('Add clicked');
-    location.href = './operations/employee-management/add.html';
-};
+typeFilter.onchange=applyFilters;
+roleFilter.onchange=applyFilters;
+companyFilter.onchange=applyFilters;
 
 function showToast(msg){
- toast.innerText=msg;
- toast.style.display='block';
- setTimeout(()=>toast.style.display='none',2500);
+  toast.innerText=msg;
+  toast.style.display='block';
+  setTimeout(()=>toast.style.display='none',2500);
 }
 render();
 </script>
